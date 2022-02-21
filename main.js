@@ -1,7 +1,11 @@
-const test = 5 || 6;
+//let sample = 5;
+let sample = { name: 'Carlos'}
 
-const sample = 0 || 20;
+let copySample = sample;
 
-console.log(test);
+//sample = 10;
+sample.test = 'test';
 
-console.log(sample);
+console.log('sample:', sample);
+
+console.log('copySample', copySample);

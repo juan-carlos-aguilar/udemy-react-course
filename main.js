@@ -1,11 +1,27 @@
-//let sample = 5;
-let sample = { name: 'Carlos'}
+// const orig = {
+//     test: 'test',
+//     userDetails: {
+//         address: {
+//             province: 'Province',
+//             country: 'country'
+//         },
+//         name: 'myObject'
+//     },
+//     myFn: () => {},
+//     undef: undefined,
+// }
 
-let copySample = sample;
+const orig = ['avocado', 'apple', {name: 'strawberry'}];
 
-//sample = 10;
-sample.test = 'test';
+//const copy = Object.assign({}, orig);
+//const copy = JSON.parse(JSON.stringify(orig));
+const copy = orig.slice();
 
-console.log('sample:', sample);
+//copy.test = 'newTest';
+//copy.userDetails.name = 'newName';
+//copy.push('guava');
+copy[2].name = 'coconut';
 
-console.log('copySample', copySample);
+console.log('orig:', orig);
+
+console.log('copy:', copy);

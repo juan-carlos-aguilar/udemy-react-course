@@ -1,44 +1,34 @@
-// function sum(...thisArgs) {
-//     return thisArgs.reduce(function(previous, current){
-//         return previous + current;
-//     })
-// }
+class Shape {
+    #privateVariable = 'privateVariable'
+    publicVariable = 'publicVariable'
+    static staticVariable = 'staticVariable'
 
-// function sum(...thisArgs) {
-//     return arguments.length;
-// }
+    constructor(height, width) {
+        this.height = height;
+        this.width = width;
+    }
 
-// function sum(...thisArgs) {
-//         return arguments.reduce();
-// }
+    getArea() {
+        return 'not implemented';
+    }
 
-//console.log(sum(5, 5, 5));
+    getPrivateData() {
+        return this.#privateVariable;
+    }
+}
 
-// const userDetails = {
-//     address: 'Anywhere',
-//     sample: {
-//         test: 'test'
-//     }
-// }
+class Square extends Shape {
+    getArea() {
+        return this.height * this.width;
+    }
 
-// const { name: newName = 'May', address, ...otherDetails } = userDetails;
+    getParentClassArea() {
+        return super.getArea();
+    }
+}
 
-// console.log(newName);
-// console.log(otherDetails);
+//const myShape = new Shape(5, 10);
+//console.log(Shape.staticVariable);
 
-// //const newUserDetails = { ...userDetails, mobileNumber: 123 }
-// const newUserDetails = { ...userDetails, name: 'May' }
-// //newUserDetails.sample.test = 'newTest';
-
-// console.log('userDetails:', userDetails);
-// console.log('newUserDetails:', newUserDetails);
-
-const fruits = [ undefined, 'guava', 'coconut']
-
-const [  firstFruit = 'strawberry', ...otherFruits ] = fruits;
-
-console.log(firstFruit);
-console.log(otherFruits);
-
-// console.log('userDetails:', fruits);
-// console.log('newUserDetails:', newFruits);
+const mySquare = new Square(5, 10);
+console.log(mySquare.getPrivateData());

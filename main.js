@@ -1,24 +1,53 @@
-class Printer {
-    name = "I am printer class"
+// function calculateSquareArea() {
+//     return new Promise(function(resolve, reject) {
+//         setTimeout(() => {
+//             const squareArea = 5 * 5;
+//             resolve(squareArea);
+//         }, 500);
+//     })
+// }
 
-    printName() {
-        console.log('printName:', this.name);
-    }
+// const myPromises = [
+//     new Promise((resolve, reject) => setTimeout(() => resolve(100), 100)),
+//     new Promise((resolve, reject) => setTimeout(() => reject(200), 200)),
+//     new Promise((resolve, reject) => setTimeout(() => resolve(300), 300))
+// ];
 
-    printNameArrowFn = () => {
-        console.log('printNameArrowFn:', this.name);
-    }
+// function onFulFilled(data) {
+//     console.log('onFulFilled', data);
+// }
+
+// **.any and .race example**
+// Promise.race(myPromises)
+// .then(onFulFilled)
+// .catch((reason) => {
+//     console.log('catch:', reason);
+// });
+// function onRejected(reason) {
+//     console.log('onRejected:', reason)
+// }
+
+// Promise.reject('testresolve')
+// .then(onFulFilled)
+// .catch((reason) => {
+//     console.log('catch:', reason);
+// });
+
+// **async and await examples**
+let myNumber = 5;
+
+function changeNumber() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            myNumber = 10;
+            resolve(myNumber);
+        }, 500);
+    })
 }
 
-const myPrinter = new Printer();
-// myPrinter.printName();
-// myPrinter.printNameArrowFn();
-
-const customPrinter = {
-    name: 'I am a Custom Printer',
-    printName:  myPrinter.printName,
-    printNameArrowFn: myPrinter.printNameArrowFn,
+async function startChange() {
+    await changeNumber();
+    console.log(myNumber);
 }
 
-customPrinter.printName();
-customPrinter.printNameArrowFn();
+startChange();

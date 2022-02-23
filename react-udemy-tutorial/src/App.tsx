@@ -7,10 +7,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <div className='App'>
         <h1>My App</h1>
-        <CounterManagement ownerName='Rysh' />
-      </>
+        <CounterManagement />
+      </div>
     );
   }
 }

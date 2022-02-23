@@ -1,86 +1,93 @@
-import React from "react";
+import React, { useDebugValue } from "react";
 import { createExportDefault } from "typescript";
-import { CounterManagementProps, CounterManagementState, UserDataAPI  } from "./interface";
+import './style.css';
+import { Button } from "../Button";
+import { UserDataAPI, UserManagementProps, UserManagementState  } from "./interface";
+import { hasUserAlreadyFetched } from "./utils";
 import axios from "axios";
 
-class CounterManagement extends React.Component<CounterManagementProps, CounterManagementState> {
-    constructor(props: CounterManagementProps) {
+class CounterManagement extends React.Component<UserManagementProps, UserManagementState> {
+    constructor(props: UserManagementProps) {
         super(props);
 
         this.state = {
-            user: 1,
-            userData: {
-                id: 1,
-                email: '',
-                first_name: '',
-                last_name: '',
-                avatar: ''
-            }
+            users: [],
+            currentUserId: 1,
         }
 
         console.log('constructor');
     }
-    
-    handleAddClick = () => {
-        this.setState({ user: this.state.user + 1 });
-    }
-    
-    handleMinusClick= () => {
-        this.setState({ user: this.state.user - 1 });
-    }
 
-    fetchUserData = () => {
-        axios.get(`https://reqres.in/api/users/${this.state.user}`)
-            .then(response => {
-                const UserDataAPI = response.data as UserDataAPI;
+    fetchUser = async () => {
+        const { currentUserId, users } = this.state;
 
-                this.setState({ userData: UserDataAPI.data })
-            })
+        const response = await axios.get(`https://reqres.in/api/users/${currentUserId}`)
+        const { data } = response.data as UserDataAPI;
+
+        this.setState({
+            users: [
+                ...users,
+                data
+            ]
+        });
     }
 
     componentDidMount() {
-        this.fetchUserData();
+        this.fetchUser();
     }
 
-    // static getDerivedStateFromProps(props: CounterManagementProps, state: CounterManagementState) {
-    //     console.log('getDerivedStateFromProps');
+    componentDidUpdate(prevProps: UserManagementProps, prevState: UserManagementState, snapshot: any) {
+        const { currentUserId, users } = this.state;
 
-    //     return null;
-    // }
-
-    // shouldComponentUpdate(nextProps: CounterManagementProps, nextState: CounterManagementState) {
-    //     console.log('shouldComponentUpdate');
-
-    //     return true;
-    // }
-
-    // Return any data before update happens
-    // getSnapshotBeforeUpdate(prevProps: CounterManagementProps,prevState: CounterManagementState) {
-    //     console.log('getSnapshotBeforeUpdate');
-        
-    //     return { scrollPosition: '152px'};
-    // }
-
-    componentDidUpdate(prevProps: CounterManagementProps, prevState: CounterManagementState, snapshot: any) {
-        if(prevState.user !== this.state.user) {
-            this.fetchUserData();
+        if (prevState.currentUserId !== this.state.currentUserId && !hasUserAlreadyFetched(users, currentUserId)) {
+            this.fetchUser();
         }
+    }
+        
+    handleAddClick = () => {
+        const { currentUserId } = this.state;
+
+        currentUserId < 10 && this.setState({
+            currentUserId: currentUserId + 1
+        });
+    }
+    
+    handleMinusClick= () => {
+        const { currentUserId } = this.state;
+
+        currentUserId < 10 && this.setState({
+            currentUserId: currentUserId -1
+        });
+    }
+
+    renderUsers = () => {
+        const { users, currentUserId } = this.state;
+
+        return users.filter (user => user.id <= currentUserId).map(({ avatar, first_name, last_name }) => {
+            return(
+                <div>
+                    <img src={avatar} />
+                    <span>{`${first_name} ${last_name}`}</span>
+                </div>
+            )
+        })
     }
 
     render() {
-        console.log('render');
-        const { ownerName } = this.props;
-        const { user, userData } = this.state;
-        const { first_name } = userData;
-
+        const { currentUserId } = this.state;
         return (
-            <div>
-                <h1>Counter Management</h1>
-                <h2>Owner Name: {ownerName}</h2>
-                <h3>User Id: {user}</h3>
-                <h3>{ first_name }</h3>
-                <button onClick={this.handleAddClick}>Add</button>
-                <button onClick={this.handleMinusClick}>Minus</button>
+            <div className="App">
+                <h1>Users Management</h1>
+                <div>
+                    <div>
+                        {this.renderUsers()}
+                    </div>
+                    <p>Number of Users: {currentUserId}</p>
+                    <div>
+                        <Button type="primary" onClick={this.handleAddClick}>Add</Button>
+                        <Button type="secondary" onClick={this.handleMinusClick}>Minus</Button>
+                    </div>
+                </div>
             </div>
         )
     }

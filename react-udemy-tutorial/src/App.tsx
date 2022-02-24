@@ -1,15 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {ErrorInfo} from 'react';
 import './App.css';
-import CounterManagement from './components/CounterManagement';
+import ErrorComponent from './components/ErrorComponent';
+import FirstComponent from './components/FirstComponent';
 
-class App extends React.Component {
+interface AppProps {}
+
+interface AppState {
+  hasError: boolean;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props)
+
+    this.state = {
+        hasError: false
+    }
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    console.log('getDerivedStateFromError:', error);
+
+    return {
+        hasError: true
+    };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.log('componentDidCatch:', error);
+    console.log('componentDidCatch:', info);
+  }
 
   render() {
     return (
       <>
         <h1>My App</h1>
-        <CounterManagement ownerName='Rysh' />
+        {this.state.hasError ? <ErrorComponent/> : <FirstComponent />}
       </>
     );
   }

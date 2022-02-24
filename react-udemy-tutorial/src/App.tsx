@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   return (
     <React.Fragment>
       <h1>My App</h1>
-      <Profile />
+      <Profile ownerName='Carlos' />
       <NewsFeed />
     </React.Fragment>
   );

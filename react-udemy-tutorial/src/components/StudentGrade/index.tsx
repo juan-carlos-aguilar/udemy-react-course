@@ -7,28 +7,46 @@ class StudentGrade extends React.Component<StudentGradeProps, StudentGradeState>
 
         this.state = {
             students: ['Carlos'],
-            grade: 5
+            newStudent: {
+                name: 'Carlos',
+                grade: 90
+            }
         }
     }
 
+    handleStudentOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            
+        })
+    }
+    
     addHandleClick = () => {
         this.setState({
-
+            students: [this.state.newStudent.name, ...this.state.students]
         })
     }
 
     render() {
+        const { students, newStudent } = this.state;
+
+        const studentsUI = students.map(student => {
+            return <li key={student}><span>{student}</span></li>
+        })
         return(
             <div>
                 <h1>Students Grade</h1>
-                <form onSubmit={(event) => event.preventDefault()} action="">
+                <ul>
+                    {studentsUI}
+                </ul>
+                <form onSubmit={(event) => event.preventDefault()}>
                     {/* Enter Student Name */}
                     <p>Stundet Name</p>
-                    <input type="text" />
+                    <input value={newStudent} onChange={this.handleInputOnChange} type="text" />
                     {/* Enter Student Grade */}
                     <p>Grade</p>
                     <input type="text" />
-                    <button onClick={addHandleClick()}></button>
+                    <br/>
+                    <button onClick={this.addHandleClick}>Add Student</button>
                 </form>
             </div>
         )

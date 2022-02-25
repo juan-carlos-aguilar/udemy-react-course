@@ -1,15 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import CounterManagement from './components/CounterManagement';
+import StudentGrade from './components/StudentGrade';
 
 class App extends React.Component {
 
   render() {
     return (
       <div className='App'>
-        <h1>My App</h1>
-        <CounterManagement />
+        <StudentGrade />
       </div>
     );
   }

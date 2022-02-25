@@ -19,6 +19,11 @@ class App extends React.Component {
     this.inputRef.current && this.inputRef.current.focus();
   }
 
+  // Callback ref example
+  // getInputRef = (element: HTMLInputElement) => {
+  //   this.inputRef = element;
+  // }
+
   render() {
     return (
       <React.Fragment>

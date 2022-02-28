@@ -1,1 +1,4 @@
-export interface UserInputProps {}
+export interface HomePageState {
+    counter: number;
+    hasError: boolean;
+}

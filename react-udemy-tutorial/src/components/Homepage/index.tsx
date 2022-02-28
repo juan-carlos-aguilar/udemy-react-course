@@ -1,42 +1,17 @@
 import React from "react";
-import { HomePageState } from './interface';
+import { ButtonGroup } from "../../ButtonGroup";
+import { Button } from "../Button";
 
-const OddComponent = React.lazy(() => import('../OddComponent'));
-const EvenComponent = React.lazy(() => import('../EvenComponent'))
-
-class HomePage extends React.Component<{}, HomePageState> {
-    constructor(props: {}) {
-        super(props);
-
-        this.state = {
-            counter: 0,
-            hasError: false,
-        }
-    }
-
-    updateCounter = () => {
-        this.setState({
-            counter: this.state.counter + 1
-        })
-    }
-
-    static getDerivedStateFromError() {
-        return {
-            hasError: true
-        }
-    }
-
+class HomePage extends React.Component {
     render() {
-        const { counter, hasError } = this.state;
-
         return (
             <div>
                 <h1>Home Page</h1>
-                {hasError ? <h1>Error Occurs</h1> :<React.Suspense fallback={<div>Loading...</div>}>
-                    {counter % 2 === 0 ? <EvenComponent /> : <OddComponent /> }
-                </React.Suspense>
-                }
-                <button onClick={this.updateCounter}>Change Component</button>
+                <ButtonGroup>
+                    <Button type="primary">Primary</Button>
+                    <Button>Default</Button>
+                    Test
+                </ButtonGroup>
             </div>
         )
     }

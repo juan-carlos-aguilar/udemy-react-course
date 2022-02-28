@@ -1,4 +1,16 @@
-.primary {
-    background-color: blue;
-    color: white;
+.button-primary {
+    background-color: skyblue;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.button-default {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.button-group-btn {
+    background-color: green;
+    padding: 5px;
+    cursor: pointer;
 }

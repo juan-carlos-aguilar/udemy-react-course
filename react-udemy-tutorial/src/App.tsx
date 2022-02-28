@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import HomePage from './components/HomePage';
+import ReusableButton from './components/Reusable Button';
 
 
 function App() {
   return (
     <div className='App'>
-      <HomePage />
+      <ReusableButton />
     </div>
   );
 }

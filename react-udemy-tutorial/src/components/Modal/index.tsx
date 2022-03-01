@@ -1,49 +1,70 @@
 import React from "react";
-import { ModalProps } from './interface';
+import { ModalBodyProps, ModalFooterProps, ModalHeaderProps, ModalProps } from './interface';
 import ReactDOM from 'react-dom';
 import './style.css';
 
-class Modal extends React.Component<ModalProps> {
-    root: HTMLElement;
+export class Modal extends React.Component<ModalProps> {
+    root: HTMLDivElement;
     el: HTMLDivElement;
-
     constructor(props: ModalProps) {
         super(props);
-        this.root = document.getElementById('root') as HTMLElement;
+
+        this.root = document.querySelector("#root") as HTMLDivElement;
         this.el = document.createElement('div');
     }
 
     componentDidMount() {
-        this.root.append(this.el)
+        this.root.appendChild(this.el);
     }
 
     componentWillUnmount() {
-        this.root.removeChild(this.el)
+        this.root.removeChild(this.el);
     }
 
-    handleCloseModal = () => {
-        this.props.onClose();
-    }
-
-    modalPreventEventPropagation = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    removeOnClickPropagation = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
     }
 
+    onClickOutsideModalBody = () => {
+        const { onClickOutsideModalBody } = this.props;
+
+        onClickOutsideModalBody && onClickOutsideModalBody();
+    }
+
     render() {
-        const { show = true } = this.props;
-        const modalUI = ReactDOM.createPortal (
-            <div className="modal-container">
-                <div className="modal-overlay" />
-                <div className="class-body">
-                    <h3>Modal</h3>
-                    <button className="modal-button">Close Button</button>
+        const { show = true, modalBodyClassName } = this.props;
+        return show ? ReactDOM.createPortal(
+            <div onClick={this.removeOnClickPropagation} className="modal-container">
+                <div onClick={this.onClickOutsideModalBody} className="modal-overlay" />
+                <div className={`modal-body ${modalBodyClassName || ''}`}>
+                    {this.props.children}
                 </div>
             </div>,
-            this.root
-        )
-
-        return show ? modalUI : null;
+            this.el
+        ) : null;
     }
 }
 
-export default Modal;
+export const ModalHeader: React.FC<ModalHeaderProps> = ({ children, className }) => {
+    return (
+        <div className={`modal-header ${className || ''}`}>
+            {children}
+        </div>
+    )
+}
+
+export const ModalBody: React.FC<ModalBodyProps> = ({ children, className }) => {
+    return (
+        <div className={`modal-body ${className || ''}`}>
+            {children}
+        </div>
+    )
+}
+
+export const ModalFooter: React.FC<ModalFooterProps> = ({ children, className }) => {
+    return (
+        <div className={`modal-footer ${className || ''}`}>
+            {children}
+        </div>
+    )
+}

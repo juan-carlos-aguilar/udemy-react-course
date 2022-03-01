@@ -1,17 +1,19 @@
 import React from "react";
-import { ButtonGroup } from "../../ButtonGroup";
-import { Button } from "../Button";
+import Profile from "../Profile";
+import ReactDOM from "react-dom";
 
 class HomePage extends React.Component {
+    profileRef: React.RefObject<Profile> = React.createRef();
+
+    componentDidMount() {
+        console.log(ReactDOM.findDOMNode(this.profileRef.current));
+    }
+
     render() {
         return (
             <div>
                 <h1>Home Page</h1>
-                <ButtonGroup>
-                    <Button type="primary">Primary</Button>
-                    <Button>Default</Button>
-                    Test
-                </ButtonGroup>
+                <Profile  ref={this.profileRef}/>
             </div>
         )
     }

@@ -1,5 +1,9 @@
 import React from "react";
 
 export interface InputProps {
-    inputRef: React.RefObject<HTMLInputElement>;
+    label: string;
+    onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+    value: string;
+    error?: string;
+    type?: string;
 }

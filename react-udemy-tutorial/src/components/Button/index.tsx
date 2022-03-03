@@ -2,7 +2,7 @@ import React from "react";
 import { ButtonProps } from "./interface";
 import './style.css'
 
-export const Button: React.FC<ButtonProps> = ({ type, className, children, onClick }) => {
+export const Button: React.FC<ButtonProps> = ({ children, onClick, type, className }) => {
     const currentType = type || 'default';
 
     return(

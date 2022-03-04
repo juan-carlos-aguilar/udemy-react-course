@@ -1,5 +1,6 @@
 import React from "react";
 import { connect, MapDispatchToPropsFunction, MapStateToProps } from "react-redux";
+import { rootReducer } from "../../reducer/rootReducer";
 import { FruitsOwnProps, FruitProps, FruitsStateProps, FruitsDispatchProps } from "./interface";
 
 class Fruits extends React.Component<FruitProps> {
@@ -23,9 +24,9 @@ class Fruits extends React.Component<FruitProps> {
     }
 }
 
-const mapStateToProps: MapStateToProps<FruitsStateProps, FruitsOwnProps, string[]> = (state, ownProps) => {
+const mapStateToProps: MapStateToProps<FruitsStateProps, FruitsOwnProps, ReturnType<typeof rootReducer>> = (state, ownProps) => {
     return {
-        fruits: state
+        fruits: state.fruits
     }
 }
 

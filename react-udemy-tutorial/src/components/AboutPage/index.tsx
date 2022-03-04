@@ -8,6 +8,7 @@ const AboutPage = () => {
         <div>
             <h1>About Page</h1>
             <Fruits ownerName="carlos" />
+            <Users ownerName="carlos" />
         </div>
     )
 }

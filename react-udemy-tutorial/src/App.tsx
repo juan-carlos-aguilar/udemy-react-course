@@ -3,26 +3,24 @@ import './App.css';
 import HomePage from './components/Homepage';
 import AboutPage from './components/AboutPage';
 import { BrowserRouter, HashRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
-import ProfilePage from './components/ProfilePage';
-import { SpecialLink } from './components/SpecialLink';
+import { createStore } from 'redux';
+import { fruitsReducer } from './reducer/fruitsReducer';
+import { Provider } from 'react-redux';
+
+const store = createStore(fruitsReducer, ['apple', 'avocado']);
 
 function App() {
   return (
     // for BrowserRouter normal path
     // for HashRouter path => '/#/_path_'
+    <Provider store={store}>
       <BrowserRouter>
-      <Link to="/">Home</Link>
-      <br/>
-      <Link to="/about">About</Link>
-      <br/>
-      <Link to="/profile">Profile</Link>
         <Routes>
           <Route path="/about" element={<AboutPage />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          
         </Routes>
       </BrowserRouter>
+    </Provider>
   );
 }
 

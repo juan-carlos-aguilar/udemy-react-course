@@ -1,48 +1,23 @@
 import React from "react";
-import { FruitsProps, FruitsState } from "./interface";
+import { connect, MapStateToProps } from "react-redux";
+import { FruitsOwnProps, FruitProps, FruitsStateProps } from "./interface";
 
-class Fruits extends React.Component<FruitsProps, FruitsState> {
-    constructor(props: FruitsProps) {
-        super(props);
-
-        this.state = {
-            fruits: ['apple', 'coconut'],
-            newFruit: '',
-        }
-    }
-
-    handleInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            newFruit: event.currentTarget.value
-        })
-    }
-
-    handleAddButtonClick = () => {
-        this.setState({
-            fruits: [this.state.newFruit, ...this.state.fruits],
-            newFruit: ''
-        })
-    }
-
+class Fruits extends React.Component<FruitProps> {
     render() {
-        const { fruits, newFruit } = this.state;
-
-        const fruitsUI = fruits.map(fruit => {
-            return <li key={fruit}><span>{fruit}</span><input /></li>
-        })
-
+        const { ownerName } = this.props;
         return (
             <div>
+                <h1>Owner: { ownerName} </h1>
                 <h1>Fruits</h1>
-                <ul>
-                    {fruitsUI}
-                </ul>
-                <input value={newFruit} onChange={this.handleInputOnChange} />
-                <button onClick={this.handleAddButtonClick}>Add Fruit</button>
             </div>
         )
-            
     }
 }
 
-export default Fruits;
+const mapStateToProps: MapStateToProps<FruitsStateProps, FruitsOwnProps, string[]> = (state, ownProps) => {
+    return {
+        fruits: state
+    }
+}
+
+export default connect(mapStateToProps)(Fruits);

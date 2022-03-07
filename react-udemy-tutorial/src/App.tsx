@@ -8,20 +8,7 @@ import { fruitsReducer } from './store/reducer/fruitsReducer';
 import { Provider } from 'react-redux';
 import { rootReducer } from './store/reducer/rootReducer';
 
-const anotherMiddleware: Middleware = store => next => action => {
-  console.log('Current Action: ', action);
-  next(action);
-}
-
-const customMiddleware: Middleware = store => next => action => {
-  if(typeof action === 'function') {
-    next(action(store));
-  } else {
-    next(action);
-  } 
-}
-
-const store = createStore(rootReducer, { users: ['Rysh', 'May'], fruits: ['apple', 'avocado'] }, applyMiddleware(customMiddleware));
+const store = createStore(rootReducer, { users: ['Rysh', 'May'], fruits: ['apple', 'avocado'] }, applyMiddleware(customMiddleware, anotherMiddleware));
 
 function App() {
   return (
@@ -40,3 +27,11 @@ function App() {
 
 
 export default App;
+function customMiddleware(customMiddleware: any): import("redux").StoreEnhancer<unknown, {}> | undefined {
+  throw new Error('Function not implemented.');
+}
+
+function anotherMiddleware(customMiddleware: (customMiddleware: any) => import("redux").StoreEnhancer<unknown, {}> | undefined, anotherMiddleware: any): import("redux").StoreEnhancer<unknown, {}> | undefined {
+  throw new Error('Function not implemented.');
+}
+

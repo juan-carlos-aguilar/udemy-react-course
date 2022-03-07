@@ -1,10 +1,11 @@
 import { Middleware, Store } from "redux";
+import { FruitsReducerAction } from "../reducer/fruitsReducer";
 
-export type CustomMiddlewareFunction = (store: Store) => any;
+export type CustomMiddlewareFunction<S, R> = (store: Store<S>) => R;
 
-export interface CustomDispatch {
+export interface CustomDispatch<S, R> {
     <T>(action: T): T
-    (param: CustomMiddlewareFunction): any;
+    (param: CustomMiddlewareFunction<S, R>): any;
 }
 
 export const customMiddleware: Middleware = store => next => action => {

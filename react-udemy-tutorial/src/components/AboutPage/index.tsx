@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Fruits from "../Fruits";
+import Users from "../Users";
 
 const AboutPage = () => {
 

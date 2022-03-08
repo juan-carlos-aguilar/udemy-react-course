@@ -1,5 +1,6 @@
 import { Reducer } from "react";
 import FruitsActions from "../action/fruitsAction";
+import { createSelector } from 'reselect';
 
 export interface FruitsReducerAction {
     type: string;

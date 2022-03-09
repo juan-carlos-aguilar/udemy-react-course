@@ -1,37 +1,26 @@
 import React from 'react';
+import logo from './logo.svg';
 import './App.css';
-import HomePage from './components/Homepage';
-import AboutPage from './components/AboutPage';
-import { BrowserRouter, HashRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
-import { applyMiddleware, createStore, Middleware } from 'redux';
-import { fruitsReducer } from './store/reducer/fruitsReducer';
-import { Provider } from 'react-redux';
-import { rootReducer } from './store/reducer/rootReducer';
-
-const store = createStore(rootReducer, { users: ['Rysh', 'May'], fruits: ['apple', 'avocado'] }, applyMiddleware(customMiddleware, anotherMiddleware));
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './containers/HomePage';
+import Checkout from './containers/CheckoutPage';
+import AllProducts from './containers/AllProductsPage';
+import { ROUTE } from './constants/route';
+import { HeaderNavigation } from './components/HeaderNavigation/';
 
 function App() {
   return (
-    // for BrowserRouter normal path
-    // for HashRouter path => '/#/_path_'
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="app-container">
+        <HeaderNavigation />
         <Routes>
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route element={<HomePage />} path={ROUTE.HOME} />
+          <Route element={<Checkout />} path={ROUTE.CHECKOUT} />
+          <Route element={<AllProducts />} path={ROUTE.ALL_PRODUCTS} />
         </Routes>
-      </BrowserRouter>
-    </Provider>
+      </div>
+    </BrowserRouter>
   );
 }
 
-
 export default App;
-function customMiddleware(customMiddleware: any): import("redux").StoreEnhancer<unknown, {}> | undefined {
-  throw new Error('Function not implemented.');
-}
-
-function anotherMiddleware(customMiddleware: (customMiddleware: any) => import("redux").StoreEnhancer<unknown, {}> | undefined, anotherMiddleware: any): import("redux").StoreEnhancer<unknown, {}> | undefined {
-  throw new Error('Function not implemented.');
-}
-

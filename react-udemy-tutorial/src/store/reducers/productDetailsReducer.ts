@@ -1,4 +1,5 @@
 import { AnyAction, Reducer } from "redux";
+import ProductDetailsAction, { productDetailsReducerAction } from "../actions/productDetailsAction";
 
 export interface ProductVariant {
     id: string;
@@ -30,8 +31,10 @@ const productDetailsInitialState: ProductDetails = {
     productsCount: 0,
 }
 
-export const productDetailsReducer: Reducer<ProductDetails, AnyAction> = (state = productDetailsInitialState, action) => {
+export const productDetailsReducer: Reducer<ProductDetails, productDetailsReducerAction> = (state = productDetailsInitialState, action) => {
     switch(action.type) {
+        case ProductDetailsAction.SET_PRODUCT_DETAILS:
+            return action.productDetails;
         default: 
             return state;
     }

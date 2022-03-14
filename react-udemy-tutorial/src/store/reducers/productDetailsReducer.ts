@@ -15,7 +15,6 @@ export interface Product {
     id: string;
     category: string[];
     title: string;
-    isBestSeller?: boolean;
     variants: ProductVariant[];
 }
 
@@ -24,6 +23,7 @@ export interface ProductDetails {
     page?: number;
     nextPage?: boolean;
     productsCount: number;
+    totalPages?: number;
 }
 
 const productDetailsInitialState: ProductDetails = {

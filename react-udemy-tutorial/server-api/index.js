@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors')
 const bodyParser = require('body-parser');
+const { hasProductInCategory } = require('./utils');
 
 const app = express();
 

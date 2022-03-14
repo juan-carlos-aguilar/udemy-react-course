@@ -7,7 +7,10 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const productsJsonPath = path.join(__dirname, '/products.json');
+const productFiltersJsonPath = path.joi(__dirname, '/productFilters.json');
+
 const products = JSON.parse(fs.readFileSync(productsJsonPath, { encoding: 'utf-8' }));
+const productFilters = JSON.parse(fs.readFileSync(productFiltersJsonPath, { encoding: 'utf-8'}));
 
 app.use(bodyParser.json());
 

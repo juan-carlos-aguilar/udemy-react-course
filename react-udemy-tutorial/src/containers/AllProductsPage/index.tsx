@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ProductCard } from "../../components/ProductCard";
 import { StoreStateType } from "../../store/rootReducer";
 import { AllProductsOwnProps, AllProductsPageProps, AllProductsStateProps } from "./interface";
+import './style.css';
 
 class AllProducts extends React.Component<AllProductsPageProps> {
     renderAllProducts = () => {

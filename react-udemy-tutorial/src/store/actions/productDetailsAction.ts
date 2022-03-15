@@ -1,33 +1,57 @@
 import { GetProductsOptions } from "../../api/apiProductDetailAPI";
-import { ProductDetails, ShopProducts } from "../reducers/productDetailsReducer";
+import { Product, ProductDetails, ShopProducts } from "../reducers/productDetailsReducer";
 
-export type productDetailsReducerAction = SetShopProductsAction | ProductDetailsFetchAction;
+export type productDetailsReducerAction = SetShopProductsAction | FetchShopProductsAction | SetBestSellerProductsAction | FetchBestSellerProductsAction;
 
 export interface SetShopProductsAction {
-    type: typeof ProductDetailsAction.SET_PRODUCT_DETAILS;
+    type: typeof ProductDetailsAction.SET_SHOP_PRODUCTS;
     shopProducts: ShopProducts;
 }
 
-export interface ProductDetailsFetchAction {
-    type: typeof ProductDetailsAction.FETCH_PRODUCTS_DETAILS;
+export interface FetchShopProductsAction {
+    type: typeof ProductDetailsAction.FETCH_SHOP_PRODUCTS;
     options: GetProductsOptions;
 }
 
-class ProductDetailsAction {
-    static readonly FETCH_PRODUCTS_DETAILS = 'FETCH_PRODUCTS_DETAILS';
-    static readonly SET_PRODUCT_DETAILS = 'SET_PRODUCT_DETAILS';
+export interface SetBestSellerProductsAction {
+    type: typeof ProductDetailsAction.SET_BEST_SELLER_PRODUCTS;
+    bestSellerProducts: Product[];
+}
 
-    fetchShopProducts = (options: GetProductsOptions): ProductDetailsFetchAction => {
+export interface FetchBestSellerProductsAction {
+    type: typeof ProductDetailsAction.FETCH_ALL_BEST_SELLER_PRODUCTS;
+}
+
+class ProductDetailsAction {
+    static readonly FETCH_SHOP_PRODUCTS = 'FETCH_SHOP_PRODUCTS';
+    static readonly SET_SHOP_PRODUCTS = 'SET_SHOP_PRODUCTS';
+    static readonly FETCH_ALL_BEST_SELLER_PRODUCTS = 'FETCH_ALL_BEST_SELLER_PRODUCTS'
+    static readonly SET_BEST_SELLER_PRODUCTS = 'SET_BEST_SELLER_PRODUCTS'
+
+    fetchShopProducts = (options: GetProductsOptions): FetchShopProductsAction => {
         return {
-            type: ProductDetailsAction.FETCH_PRODUCTS_DETAILS,
+            type: ProductDetailsAction.FETCH_SHOP_PRODUCTS,
             options,
         }
     }
 
     set = (shopProducts: ShopProducts): SetShopProductsAction => {
         return {
-            type: ProductDetailsAction.SET_PRODUCT_DETAILS,
+            type: ProductDetailsAction.SET_SHOP_PRODUCTS,
             shopProducts,
+        }
+    }
+
+    fetchAllBestSellerProducts = (): FetchBestSellerProductsAction => {
+        return {
+            type: ProductDetailsAction.FETCH_ALL_BEST_SELLER_PRODUCTS
+        }
+    }
+
+    setBestSellerProducts = (bestSellerProducts: Product[]): SetBestSellerProductsAction => {
+        return {
+            type: ProductDetailsAction.SET_BEST_SELLER_PRODUCTS,
+            bestSellerProducts
         }
     }
 }

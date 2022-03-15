@@ -1,28 +1,53 @@
 import React from 'react'
+import { connect, MapDispatchToPropsFunction, MapStateToProps } from 'react-redux';
 import { ProductCard } from '../../components/ProductCard'
+import ProductDetailsAction from '../../store/actions/productDetailsAction';
+import { StoreStateType } from '../../store/rootReducer';
+import { BestSellerDispatchProps, BestSellerProps, BestSellerStateProps } from './interface';
 import './style.css';
 
-export default class BestSeller extends React.Component {
+class BestSeller extends React.Component<BestSellerProps> {
+    componentDidMount() {
+        this.props.fetchAllBestSellerProducts();
+    }
+
+    renderBestSellerProducts = () => {
+        const { bestSellerProducts } = this.props;
+
+        return bestSellerProducts.map(({ title, id, variants }) => {
+            return (
+                <ProductCard 
+                    key={id}
+                    url={variants[0].image}
+                    name={title}
+                />
+            )
+        })
+    }
     render() {
         return (
             <div className="best-seller-container">
                 <h2>Best Seller</h2>
                 <div className="best-seller-products">
-                    <ProductCard
-                        url="http://localhost:1234/public/images/Formal%20Dress%20Shirts%20Casual%20Long%20Sleeve%20Slim%20Fit%20-%20Blue.png"
-                        name="Formal Dress Shirts Casual Long Sleeve Slim Fit"
-                    />
-                    <ProductCard
-                        url="http://localhost:1234/public/images/Soft%20Summer%20Short%20Slim%20Fit%20-%20Gray.png"
-                        name="Formal Dress Shirts Casual Short Sleeve Slim Fit"
-                    />
-                    <ProductCard
-                        url="http://localhost:1234/public/images/Formal%20Dress%20Shirts%20Casual%20Short%20Sleeve%20Slim%20Fit%20-%20Blue.png"
-                        name="Soft Summer Short Slim Fit"
-                    />
-
+                    {this.renderBestSellerProducts()}
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps: MapStateToProps<BestSellerStateProps, {}, StoreStateType> = (state) => {
+    return {
+        bestSellerProducts: state.productDetails.bestSellerProducts
+    }
+}
+
+const mapDispatchToProps: MapDispatchToPropsFunction<BestSellerDispatchProps, {}> = (dispatch) => {
+    const { fetchAllBestSellerProducts } = new ProductDetailsAction();
+
+    return {
+        fetchAllBestSellerProducts: () => dispatch(fetchAllBestSellerProducts())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BestSeller);

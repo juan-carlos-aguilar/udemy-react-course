@@ -1,9 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import ProductDetailsAPI from '../../api/apiProductDetailAPI'
-import ProductDetailsAction, { ProductDetailsFetchAction } from '../actions/productDetailsAction';
+import ProductDetailsAction, { FetchShopProductsAction } from '../actions/productDetailsAction';
 import { ProductDetails, ShopProducts } from '../reducers/productDetailsReducer';
 
-function* workerFetchProductsDetailSaga(action: ProductDetailsFetchAction) {
+function* workerFetchShopProductsSaga(action: FetchShopProductsAction) {
     const productDetailsAPI = new ProductDetailsAPI();
     const productDetailsAction = new ProductDetailsAction();
 
@@ -18,6 +18,22 @@ function* workerFetchProductsDetailSaga(action: ProductDetailsFetchAction) {
     }
 }
 
+function* workerFetchBestSellerProductsSaga() {
+    const productDetailsAPI = new ProductDetailsAPI();
+    const productDetailsAction = new ProductDetailsAction();
+
+    try {
+        const response = yield call(productDetailsAPI.getProducts, { category: ['best seller']});
+        const { products } = response.data as ShopProducts;
+    
+        yield put(productDetailsAction.setBestSellerProducts(products));
+    } catch (err) {
+        // Changes might come later on
+        console.log('error');
+    }
+}
+
 export function* watchProductDetailsSaga() {
-    yield takeLatest(ProductDetailsAction.FETCH_PRODUCTS_DETAILS, workerFetchProductsDetailSaga)
+    yield takeLatest(ProductDetailsAction.FETCH_SHOP_PRODUCTS, workerFetchShopProductsSaga)
+    yield takeLatest(ProductDetailsAction.FETCH_ALL_BEST_SELLER_PRODUCTS, workerFetchBestSellerProductsSaga)
 }

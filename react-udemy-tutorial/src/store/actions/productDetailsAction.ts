@@ -1,10 +1,11 @@
 import { GetProductsOptions } from "../../api/apiProductDetailAPI";
-import { ProductDetails } from "../reducers/productDetailsReducer";
+import { ProductDetails, ShopProducts } from "../reducers/productDetailsReducer";
 
-export type productDetailsReducerAction = ProductDetailsSetAction | ProductDetailsFetchAction;
-export interface ProductDetailsSetAction {
+export type productDetailsReducerAction = SetShopProductsAction | ProductDetailsFetchAction;
+
+export interface SetShopProductsAction {
     type: typeof ProductDetailsAction.SET_PRODUCT_DETAILS;
-    productDetails: ProductDetails;
+    shopProducts: ShopProducts;
 }
 
 export interface ProductDetailsFetchAction {
@@ -16,17 +17,17 @@ class ProductDetailsAction {
     static readonly FETCH_PRODUCTS_DETAILS = 'FETCH_PRODUCTS_DETAILS';
     static readonly SET_PRODUCT_DETAILS = 'SET_PRODUCT_DETAILS';
 
-    fetch = (options: GetProductsOptions): ProductDetailsFetchAction => {
+    fetchShopProducts = (options: GetProductsOptions): ProductDetailsFetchAction => {
         return {
             type: ProductDetailsAction.FETCH_PRODUCTS_DETAILS,
             options,
         }
     }
 
-    set = (productDetails: ProductDetails): ProductDetailsSetAction => {
+    set = (shopProducts: ShopProducts): SetShopProductsAction => {
         return {
             type: ProductDetailsAction.SET_PRODUCT_DETAILS,
-            productDetails
+            shopProducts,
         }
     }
 }

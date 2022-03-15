@@ -1,17 +1,17 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import ProductDetailsAPI from '../../api/apiProductDetailAPI'
-import ProductDetailsAction from '../actions/productDetailsAction';
-import { ProductDetails } from '../reducers/productDetailsReducer';
+import ProductDetailsAction, { ProductDetailsFetchAction } from '../actions/productDetailsAction';
+import { ProductDetails, ShopProducts } from '../reducers/productDetailsReducer';
 
-function* workerFetchProductsDetailSaga() {
+function* workerFetchProductsDetailSaga(action: ProductDetailsFetchAction) {
     const productDetailsAPI = new ProductDetailsAPI();
     const productDetailsAction = new ProductDetailsAction();
 
     try {
-        const response = yield call(productDetailsAPI.getProducts);
-        const productDetails = response.data as ProductDetails;
+        const response = yield call(productDetailsAPI.getProducts, action.options);
+        const shopProducts = response.data as ShopProducts;
     
-        yield put(productDetailsAction.set(productDetails));
+        yield put(productDetailsAction.set(shopProducts));
     } catch (err) {
         // Changes might come later on
         console.log('error');

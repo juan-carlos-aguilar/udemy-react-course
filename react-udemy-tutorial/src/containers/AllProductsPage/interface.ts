@@ -1,9 +1,15 @@
-import { ProductDetails } from "../../store/reducers/productDetailsReducer";
+import { GetProductsOptions } from "../../api/apiProductDetailAPI";
+import { ProductDetailsFetchAction } from "../../store/actions/productDetailsAction";
+import { ProductDetails, ShopProducts } from "../../store/reducers/productDetailsReducer";
 
 export interface AllProductsStateProps {
-    productDetails: ProductDetails;
+    shopProducts: ShopProducts;
 }
 
 export interface AllProductsOwnProps {}
 
-export type AllProductsPageProps = AllProductsStateProps & AllProductsOwnProps;
+export interface AllProductsDispathToProps {
+    fetchShopProducts(options: GetProductsOptions): ProductDetailsFetchAction
+}
+
+export type AllProductsPageProps = AllProductsStateProps & AllProductsOwnProps & AllProductsDispathToProps;

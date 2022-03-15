@@ -1,16 +1,24 @@
 import React from "react";
-import { connect, MapStateToProps } from "react-redux";
-import { useParams } from "react-router-dom";
+import { connect, MapDispatchToPropsFunction, MapStateToProps } from "react-redux";
 import { ProductCard } from "../../components/ProductCard";
+import ProductDetailsAction from "../../store/actions/productDetailsAction";
 import { StoreStateType } from "../../store/rootReducer";
-import { AllProductsOwnProps, AllProductsPageProps, AllProductsStateProps } from "./interface";
+import { AllProductsDispathToProps, AllProductsOwnProps, AllProductsPageProps, AllProductsStateProps } from "./interface";
 import './style.css';
 
 class AllProducts extends React.Component<AllProductsPageProps> {
+    componentDidMount() {
+        this.props.fetchShopProducts({})
+    }
+
     renderAllProducts = () => {
-        const { productDetails } = this.props;
-        return productDetails.products.map(({ title, variants, id }) => {
-            return <ProductCard key={id} name={title} url={variants[0].image} />
+        const { shopProducts } = this.props;
+        return shopProducts.products.map(({ title, variants, id }) => {
+            return (
+                <div key={id} className="product-item-container">
+                    <ProductCard name={title} url={variants[0].image} />
+                </div>
+            )
         })
     }
 
@@ -25,8 +33,15 @@ class AllProducts extends React.Component<AllProductsPageProps> {
 
 const mapStateToProps: MapStateToProps<AllProductsStateProps, AllProductsOwnProps, StoreStateType> = (state) => {
     return {
-        productDetails: state.productDetails
+        shopProducts: state.productDetails.shopProducts
     }
 }
 
-export default connect(mapStateToProps)(AllProducts);
+const mapDispatchToProps: MapDispatchToPropsFunction<AllProductsDispathToProps, AllProductsOwnProps> = (dispatch) => {
+    const { fetchShopProducts } = new ProductDetailsAction();
+    return {
+        fetchShopProducts: (options) => dispatch(fetchShopProducts(options))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);

@@ -9,7 +9,8 @@ export interface AllProductsStateProps {
 export interface AllProductsOwnProps {}
 
 export interface AllProductsDispathToProps {
-    fetchShopProducts(options: GetProductsOptions): FetchShopProductsAction
+    fetchShopProducts(options: GetProductsOptions): FetchShopProductsAction;
+    fetchShopProductsAndFilters(): any;
 }
 
 export type AllProductsPageProps = AllProductsStateProps & AllProductsOwnProps & AllProductsDispathToProps;

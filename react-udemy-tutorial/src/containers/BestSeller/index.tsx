@@ -8,7 +8,10 @@ import './style.css';
 
 class BestSeller extends React.Component<BestSellerProps> {
     componentDidMount() {
-        this.props.fetchAllBestSellerProducts();
+        const { bestSellerProducts } = this.props;
+        if(!bestSellerProducts.length) {
+            this.props.fetchAllBestSellerProducts();
+        }
     }
 
     renderBestSellerProducts = () => {

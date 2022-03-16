@@ -8,7 +8,11 @@ import './style.css';
 
 class AllProducts extends React.Component<AllProductsPageProps> {
     componentDidMount() {
-        this.props.fetchShopProducts({})
+        const { shopProducts } = this.props;
+
+        if(!shopProducts.products.length) {
+            this.props.fetchShopProductsAndFilters();
+        }
     }
 
     renderAllProducts = () => {
@@ -38,9 +42,10 @@ const mapStateToProps: MapStateToProps<AllProductsStateProps, AllProductsOwnProp
 }
 
 const mapDispatchToProps: MapDispatchToPropsFunction<AllProductsDispathToProps, AllProductsOwnProps> = (dispatch) => {
-    const { fetchShopProducts } = new ProductDetailsAction();
+    const { fetchShopProducts, fetchShopProductsAndFilters } = new ProductDetailsAction();
     return {
-        fetchShopProducts: (options) => dispatch(fetchShopProducts(options))
+        fetchShopProducts: (options) => dispatch(fetchShopProducts(options)),
+        fetchShopProductsAndFilters: () => dispatch(fetchShopProductsAndFilters()),
     }
 }
 

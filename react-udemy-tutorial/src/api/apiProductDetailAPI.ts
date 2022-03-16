@@ -1,10 +1,16 @@
 import axios from "axios";
+import { ProductFilters } from "../store/reducers/productDetailsReducer";
 
 export interface GetProductsOptions {
     page?: number;
     size?: number;
     category?: string[];
 }
+
+export interface ProductFiltersAPIResponse {
+    productFilters: ProductFilters;
+}
+
 class ProductDetailsAPI {
     getProducts = (options: GetProductsOptions) => {
         const { page, size, category } = options;
@@ -12,6 +18,10 @@ class ProductDetailsAPI {
         const sizeQueryParam = `&size=${size || ''}`;
         const categoryQueryParam = `&category=${category ? category.join('&category=') : ''}`;
         return axios.get(`http://localhost:1234/products?${pageQueryParam}${sizeQueryParam}${categoryQueryParam}`);
+    }
+
+    getProductFilters = () => {
+        return axios.get('http://localhost:1234/productFilters');
     }
 }
 

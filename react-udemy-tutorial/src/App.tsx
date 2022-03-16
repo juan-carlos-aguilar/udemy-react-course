@@ -11,7 +11,7 @@ import { rootReducer } from './store/rootReducer';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import ProductDetailsAction from './store/actions/productDetailsAction';
+import ShopAction from './store/actions/shopAction';
 import startRootSaga from './store/rootSaga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 

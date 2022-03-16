@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, MapDispatchToPropsFunction, MapStateToProps } from "react-redux";
 import { ProductCard } from "../../components/ProductCard";
-import ProductDetailsAction from "../../store/actions/productDetailsAction";
+import ShopAction from "../../store/actions/shopAction";
 import { StoreStateType } from "../../store/rootReducer";
 import { AllProductsDispathToProps, AllProductsOwnProps, AllProductsPageProps, AllProductsStateProps } from "./interface";
 import './style.css';
@@ -36,13 +36,15 @@ class AllProducts extends React.Component<AllProductsPageProps> {
 }
 
 const mapStateToProps: MapStateToProps<AllProductsStateProps, AllProductsOwnProps, StoreStateType> = (state) => {
+    const { shopProducts, productFilters } = state.shop;
     return {
-        shopProducts: state.productDetails.shopProducts
+        shopProducts: shopProducts,
+        productFilters: productFilters
     }
 }
 
 const mapDispatchToProps: MapDispatchToPropsFunction<AllProductsDispathToProps, AllProductsOwnProps> = (dispatch) => {
-    const { fetchShopProducts, fetchShopProductsAndFilters } = new ProductDetailsAction();
+    const { fetchShopProducts, fetchShopProductsAndFilters } = new ShopAction();
     return {
         fetchShopProducts: (options) => dispatch(fetchShopProducts(options)),
         fetchShopProductsAndFilters: () => dispatch(fetchShopProductsAndFilters()),

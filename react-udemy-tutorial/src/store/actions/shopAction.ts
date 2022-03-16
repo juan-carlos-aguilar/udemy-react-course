@@ -1,41 +1,41 @@
-import { GetProductsOptions } from "../../api/apiProductDetailAPI";
-import { Product, ProductDetails, ProductFilters, ShopProducts } from "../reducers/productDetailsReducer";
+import { GetProductsOptions } from "../../api/shopAPI";
+import { Product, Shop, ProductFilters, ShopProducts } from "../reducers/shopReducer";
 
-export type productDetailsReducerAction = SetShopProductsAction | FetchShopProductsAction | SetBestSellerProductsAction | FetchBestSellerProductsAction
+export type shopReducerAction = SetShopProductsAction | FetchShopProductsAction | SetBestSellerProductsAction | FetchBestSellerProductsAction
 | FetchShopProductsAndFilterAction | SetShopProductsAndFilterAction;
 
 export interface SetShopProductsAction {
-    type: typeof ProductDetailsAction.SET_SHOP_PRODUCTS;
+    type: typeof ShopAction.SET_SHOP_PRODUCTS;
     shopProducts: ShopProducts;
 }
 
 export interface FetchShopProductsAction {
-    type: typeof ProductDetailsAction.FETCH_SHOP_PRODUCTS;
+    type: typeof ShopAction.FETCH_SHOP_PRODUCTS;
     options: GetProductsOptions;
 }
 
 export interface SetBestSellerProductsAction {
-    type: typeof ProductDetailsAction.SET_BEST_SELLER_PRODUCTS;
+    type: typeof ShopAction.SET_BEST_SELLER_PRODUCTS;
     bestSellerProducts: Product[];
 }
 
 export interface FetchBestSellerProductsAction {
-    type: typeof ProductDetailsAction.FETCH_ALL_BEST_SELLER_PRODUCTS;
+    type: typeof ShopAction.FETCH_ALL_BEST_SELLER_PRODUCTS;
 }
 
 export interface SetShopProductsAndFilterAction {
-    type: typeof ProductDetailsAction.SET_SHOP_PRODUCTS_AND_FILTERS;
+    type: typeof ShopAction.SET_SHOP_PRODUCTS_AND_FILTERS;
     shopProducts: ShopProducts;
     productFilters: ProductFilters; 
 }
 
 export interface FetchShopProductsAndFilterAction {
-    type: typeof ProductDetailsAction.FETCH_SHOP_PRODUCTS_AND_FILTERS;
+    type: typeof ShopAction.FETCH_SHOP_PRODUCTS_AND_FILTERS;
 }
 
 
 
-class ProductDetailsAction {
+class ShopAction {
     static readonly FETCH_SHOP_PRODUCTS_AND_FILTERS = 'FETCH_SHOP_PRODUCTS_AND_FILTERS';
     static readonly SET_SHOP_PRODUCTS_AND_FILTERS = 'SET_SHOP_PRODUCTS_AND_FILTERS';
     static readonly FETCH_SHOP_PRODUCTS = 'FETCH_SHOP_PRODUCTS';
@@ -45,44 +45,44 @@ class ProductDetailsAction {
 
     fetchShopProducts = (options: GetProductsOptions): FetchShopProductsAction => {
         return {
-            type: ProductDetailsAction.FETCH_SHOP_PRODUCTS,
+            type: ShopAction.FETCH_SHOP_PRODUCTS,
             options,
         }
     }
 
     setShopProducts = (shopProducts: ShopProducts): SetShopProductsAction => {
         return {
-            type: ProductDetailsAction.SET_SHOP_PRODUCTS,
+            type: ShopAction.SET_SHOP_PRODUCTS,
             shopProducts,
         }
     }
 
     fetchAllBestSellerProducts = (): FetchBestSellerProductsAction => {
         return {
-            type: ProductDetailsAction.FETCH_ALL_BEST_SELLER_PRODUCTS
+            type: ShopAction.FETCH_ALL_BEST_SELLER_PRODUCTS
         }
     }
 
     setBestSellerProducts = (bestSellerProducts: Product[]): SetBestSellerProductsAction => {
         return {
-            type: ProductDetailsAction.SET_BEST_SELLER_PRODUCTS,
+            type: ShopAction.SET_BEST_SELLER_PRODUCTS,
             bestSellerProducts
         }
     }
 
     fetchShopProductsAndFilters = (): FetchShopProductsAndFilterAction => {
         return {
-            type: ProductDetailsAction.FETCH_SHOP_PRODUCTS_AND_FILTERS
+            type: ShopAction.FETCH_SHOP_PRODUCTS_AND_FILTERS
         }
     }
 
     setShopProductsAndFilters = (shopProducts: ShopProducts, productFilters: ProductFilters): SetShopProductsAndFilterAction => {
         return {
-            type: ProductDetailsAction.SET_SHOP_PRODUCTS_AND_FILTERS,
+            type: ShopAction.SET_SHOP_PRODUCTS_AND_FILTERS,
             shopProducts,
             productFilters,
         }
     }
 }
 
-export default ProductDetailsAction
+export default ShopAction

@@ -1,5 +1,5 @@
 import { AnyAction, Reducer } from "redux";
-import ProductDetailsAction, { productDetailsReducerAction } from "../actions/productDetailsAction";
+import ShopAction, { shopReducerAction } from "../actions/shopAction";
 import update from 'immutability-helper';
 import { getEnabledCategories } from "trace_events";
 
@@ -34,13 +34,13 @@ export interface ProductFilters {
     trends: string[];
 }
 
-export interface ProductDetails {
+export interface Shop {
     shopProducts: ShopProducts;
     bestSellerProducts: Product[];
     productFilters: ProductFilters;
 }
 
-const productDetailsInitialState: ProductDetails = {
+const shopInitialState: Shop = {
     shopProducts: {
         products: [],
         productsCount: 0,
@@ -53,16 +53,16 @@ const productDetailsInitialState: ProductDetails = {
     bestSellerProducts: []
 }
 
-export const productDetailsReducer: Reducer<ProductDetails, productDetailsReducerAction> = (state = productDetailsInitialState, action) => {
+export const shopReducer: Reducer<Shop, shopReducerAction> = (state = shopInitialState, action) => {
     switch(action.type) {
-        case ProductDetailsAction.SET_SHOP_PRODUCTS_AND_FILTERS:
+        case ShopAction.SET_SHOP_PRODUCTS_AND_FILTERS:
             return update(state, { 
                 shopProducts: { $set: action.shopProducts },
                 productFilters: { $set: action.productFilters }
             })
-        case ProductDetailsAction.SET_BEST_SELLER_PRODUCTS:
+        case ShopAction.SET_BEST_SELLER_PRODUCTS:
             return update(state, { bestSellerProducts: { $set: action.bestSellerProducts }})
-        case ProductDetailsAction.SET_SHOP_PRODUCTS:
+        case ShopAction.SET_SHOP_PRODUCTS:
             return update(state, { shopProducts: { $set: action.shopProducts }});
         default: 
             return state;

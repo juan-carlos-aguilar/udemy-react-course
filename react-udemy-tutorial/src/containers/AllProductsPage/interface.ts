@@ -1,9 +1,10 @@
-import { GetProductsOptions } from "../../api/apiProductDetailAPI";
-import { FetchShopProductsAction } from "../../store/actions/productDetailsAction";
-import { ProductDetails, ShopProducts } from "../../store/reducers/productDetailsReducer";
+import { GetProductsOptions } from "../../api/shopAPI";
+import { FetchShopProductsAction } from "../../store/actions/shopAction";
+import { Shop, ProductFilters, ShopProducts } from "../../store/reducers/shopReducer";
 
 export interface AllProductsStateProps {
     shopProducts: ShopProducts;
+    productFilters: ProductFilters;
 }
 
 export interface AllProductsOwnProps {}

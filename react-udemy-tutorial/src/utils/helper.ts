@@ -1,0 +1,1 @@
+export const upperCaseFirstLetter = (str: string) => str[0].toUpperCase() + str.substring(1).toLowerCase();

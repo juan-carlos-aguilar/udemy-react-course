@@ -10,7 +10,7 @@ export interface UpdateUserFiltersAction {
 class UserAction {
     static readonly UPDATE_USER_FILTERS = 'UPDATE_USER_FILTERS'
 
-    updateUserFilters = (filters: ProductFilters) => {
+    updateUserFilters = (filters: ProductFilters): UpdateUserFiltersAction => {
         return {
             type: UserAction.UPDATE_USER_FILTERS,
             filters

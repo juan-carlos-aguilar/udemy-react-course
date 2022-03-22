@@ -5,6 +5,7 @@ import { ProductCard } from "../../components/ProductCard";
 import ShopAction from "../../store/actions/shopAction";
 import UserAction from "../../store/actions/userAction";
 import { StoreStateType } from "../../store/rootReducer";
+import { Button } from "../../ui-components/Button";
 import { AllProductsDispathToProps, AllProductsOwnProps, AllProductsPageProps, AllProductsStateProps } from "./interface";
 import './style.css';
 
@@ -31,7 +32,7 @@ class AllProducts extends React.Component<AllProductsPageProps> {
     render() {
         const { productFilters, userFilters, updateUserFilters } = this.props;
         return (
-            <div className="all-products-page-container">
+            <div className="all-products-page-container">  
                 <AllProductsSideBar onUpdateUserFilters={updateUserFilters} userFilters={userFilters} productFilters={productFilters} />
                 <div className="all-products-container">
                     {this.renderAllProducts()} 

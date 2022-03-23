@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, { useRef, useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { Button } from "../Button";
 
 const factorial = () => {
@@ -7,18 +7,26 @@ const factorial = () => {
 
 const SuperComponent: React.FC = () => {
     const [ counter, setCounter ] = useState(0);
+    const [ buttonWidth, setButtonWidth ] = useState(0);
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
     
     const handleButtonClick = () => {
-        console.log('counter:', counter)
-        setCounter((prevState) => prevState + 1);
+        setCounter(counter + 1);
     }
 
-    const memoizedHandleButtonClick = useCallback(handleButtonClick, [counter]);
+    const buttonCallbackRef = (element: HTMLButtonElement | null) => {
+        console.log(element);
+        if(element !== null) {
+            setButtonWidth(element.clientWidth); 
+        }
+    }
 
     return (
         <div className="App">
+            <h1>Super Component</h1>
             <p>Counter: {counter}</p>
-            <Button onClick={memoizedHandleButtonClick} />
+            <p>Button Width: {buttonWidth}</p>
+            <button ref={buttonCallbackRef} onClick={handleButtonClick}>Update Counter</button>
         </div>
     )
 }

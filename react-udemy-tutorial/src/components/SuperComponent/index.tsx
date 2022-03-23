@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
-class SuperComponent extends React.Component {
-    printSupercomponent = () => {
-        alert('Super Component');
+const SuperComponent: React.FC = () => {
+    const [ counter, setCounter ] = useState(0);
+    
+    // Increase Counter Handle function
+    const handleIncreaseCounter = () => {
+        setCounter(counter + 1);
     }
 
-    render() {
-        return (
-            <div>
-                <h2>SuperComponent</h2>
-            </div>
-        )
-    }
+    return (
+        <div className="App">
+            <p>Counter: {counter}</p>
+            <button onClick={handleIncreaseCounter}>Add Value</button>
+        </div>
+    )
 }
 
 export default SuperComponent;

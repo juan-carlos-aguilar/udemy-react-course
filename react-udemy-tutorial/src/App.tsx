@@ -6,7 +6,7 @@ import SuperComponent from './components/SuperComponent';
 function App() {
   return (
     <div>
-      <ClassComponent />
+      <SuperComponent />
     </div>
   );
 }

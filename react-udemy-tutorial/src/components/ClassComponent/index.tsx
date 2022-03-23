@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { ClassComponentProps, ClassComponentState } from './interface';
 
 export default class ClassComponent extends React.Component<ClassComponentProps, ClassComponentState> {
     instanceVariable: number = 0;

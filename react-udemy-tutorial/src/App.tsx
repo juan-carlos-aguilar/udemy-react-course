@@ -4,7 +4,7 @@ import { SuperComponent } from './components/SuperComponent';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <SuperComponent />
     </div>
   );
